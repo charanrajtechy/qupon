@@ -25,7 +25,7 @@ export function Features() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.05 }}
-            className="bg-card border border-border rounded-2xl p-6 text-center hover:-translate-y-1 hover:shadow-soft transition-all"
+            className="bg-card border border-border rounded-2xl p-6 text-center card-tilt"
           >
             <div className="h-12 w-12 mx-auto rounded-xl bg-gradient-primary text-primary-foreground flex items-center justify-center mb-4 shadow-glow">
               <Icon className="h-6 w-6" />
