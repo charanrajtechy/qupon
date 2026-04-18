@@ -26,10 +26,10 @@ const XIcon = ({ className }: IconProps) => (
 );
 
 const socials = [
-  { href: "https://facebook.com", label: "Facebook", Icon: FacebookIcon },
-  { href: "https://instagram.com", label: "Instagram", Icon: InstagramIcon },
-  { href: "https://x.com", label: "X", Icon: XIcon },
-  { href: "https://linkedin.com", label: "LinkedIn", Icon: LinkedinIcon },
+  { href: "https://www.facebook.com/share/17nFguKVVs", label: "Facebook", Icon: FacebookIcon },
+  { href: "https://www.instagram.com/qupon.india", label: "Instagram", Icon: InstagramIcon },
+  { href: "https://x.com/_qupon", label: "X", Icon: XIcon },
+  { href: "https://www.linkedin.com/company/quponindia/", label: "LinkedIn", Icon: LinkedinIcon },
 ];
 
 export function Footer() {
