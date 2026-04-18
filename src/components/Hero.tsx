@@ -1,10 +1,6 @@
 import { motion } from "framer-motion";
 import { StoreButtons } from "./StoreButtons";
-import { Sparkles, Plus } from "lucide-react";
-
-const AVATARS = ["Lily", "Mila", "Zoe", "Leo"].map(
-  (seed) => `https://api.dicebear.com/7.x/big-smile/svg?seed=${seed}&backgroundColor=ffd93d,ffb4a2,b6e3f4,c0aede&mouth=openSmile,awkwardSmile,teethSmile`
-);
+import { Sparkles } from "lucide-react";
 
 export function Hero() {
   return (
@@ -32,18 +28,9 @@ export function Hero() {
             </div>
             <div className="mt-8 flex items-center gap-6 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
-                {AVATARS.map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt={`Happy user ${i + 1}`}
-                    loading="lazy"
-                    className="h-9 w-9 rounded-full border-2 border-background bg-accent object-cover"
-                  />
+                {["#E53935", "#FB7185", "#F97316", "#FBBF24"].map((c) => (
+                  <div key={c} className="h-8 w-8 rounded-full border-2 border-background" style={{ background: c }} />
                 ))}
-                <div className="h-9 w-9 rounded-full border-2 border-background bg-gradient-primary text-primary-foreground flex items-center justify-center shadow-soft">
-                  <Plus className="h-4 w-4" strokeWidth={3} />
-                </div>
               </div>
               <span><strong className="text-foreground">100K+</strong> happy users already saving</span>
             </div>
