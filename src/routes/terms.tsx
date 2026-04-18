@@ -124,8 +124,8 @@ function Terms() {
       <h2>15. Contact</h2>
       <p>For queries or legal issues:</p>
       <ul>
-        <li>Email: <strong>info@qupon.in</strong></li>
-        <li>Customer Care: <strong>+91 9121289189</strong></li>
+        <li>Email: <a href="mailto:info@qupon.in"><strong>info@qupon.in</strong></a></li>
+        <li>Customer Care: <a href="tel:+919121289189"><strong>+91 9121289189</strong></a></li>
       </ul>
     </LegalLayout>
   );
