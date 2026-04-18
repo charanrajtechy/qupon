@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { StoreButtons } from "./StoreButtons";
 import { Sparkles, Plus } from "lucide-react";
 
-const AVATARS = ["Happy", "Joy", "Smile", "Cheer"].map(
-  (seed) => `https://api.dicebear.com/7.x/fun-emoji/svg?seed=${seed}&backgroundColor=ffd93d,ff9a3c,ff6b6b,ffb4a2`
+const AVATARS = ["Lily", "Mila", "Zoe", "Leo"].map(
+  (seed) => `https://api.dicebear.com/7.x/big-smile/svg?seed=${seed}&backgroundColor=ffd93d,ffb4a2,b6e3f4,c0aede&mouth=openSmile,awkwardSmile,teethSmile`
 );
 
 export function Hero() {
