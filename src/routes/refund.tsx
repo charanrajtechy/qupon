@@ -5,9 +5,9 @@ export const Route = createFileRoute("/refund")({
   head: () => ({
     meta: [
       { title: "Refund Policy — Qupon" },
-      { name: "description", content: "Qupon's refund policy: 1-hour reporting window for invalid coupons." },
+      { name: "description", content: "Qupon's official Refund Policy: strict 1-hour reporting window, mandatory proof, and process." },
       { property: "og:title", content: "Refund Policy — Qupon" },
-      { property: "og:description", content: "How refunds work on Qupon — buyer protection within 1 hour." },
+      { property: "og:description", content: "Qupon's official Refund Policy: strict 1-hour reporting window, mandatory proof, and process." },
     ],
   }),
   component: Refund,
@@ -15,34 +15,40 @@ export const Route = createFileRoute("/refund")({
 
 function Refund() {
   return (
-    <LegalLayout eyebrow="Legal" title="Refund Policy" updated="January 2025">
-      <p>Qupon's buyer protection ensures you only pay for coupons that work.</p>
+    <LegalLayout eyebrow="Legal" title="Refund Policy" updated="9th December 2025">
+      <p><strong>Effective Date:</strong> 9th December 2025</p>
+      <p><strong>Release Date:</strong> 9th December 2025</p>
+      <p><strong>Last Updated:</strong> 9th December 2025</p>
 
-      <h2>1. 1-hour reporting window</h2>
-      <p>If a purchased coupon is invalid, expired, or already used, you must report it within <strong>1 hour</strong> of purchase from inside the Qupon app.</p>
+      <p>At Qupon, we aim to maintain a transparent, fair, and secure coupon marketplace. Please read this Refund Policy carefully before purchasing any coupon on the Qupon platform.</p>
 
-      <h2>2. Eligibility for refund</h2>
+      <h2><strong>1. Final Sale Policy</strong></h2>
+      <p>All coupon purchases made on Qupon are final and non-reversible, except in cases strictly defined under this policy.</p>
+
+      <h2><strong>2. Strict Refund Eligibility (1-Hour Rule)</strong></h2>
+      <p>A refund request will be considered ONLY if the coupon is invalid, expired, or already used at the time of purchase, and the issue is reported within the first <strong>ONE (1) hour</strong> from the time of purchase. Any request raised after the 1-hour window will be automatically rejected without exception.</p>
+
+      <h2><strong>3. Mandatory Proof Requirement</strong></h2>
+      <p>Buyers must submit complete proof within the same 1-hour window, including order ID, coupon code, screenshots or recordings showing the issue, and a brief explanation. Incomplete or delayed submissions will result in rejection.</p>
+
+      <h2><strong>4. Refund Request Procedure</strong></h2>
+      <p>Within 1 hour of purchase, contact Qupon via:</p>
       <ul>
-        <li>The coupon was reported within the 1-hour window.</li>
-        <li>The coupon is verified as invalid by our verification team.</li>
-        <li>You provide reasonable proof (screenshot or rejection message from the brand).</li>
+        <li>Phone / WhatsApp: <a href="tel:+919121289189"><strong>+91 91212 89189</strong></a></li>
+        <li>Email: <a href="mailto:info@qupon.in"><strong>info@qupon.in</strong></a></li>
       </ul>
 
-      <h2>3. Refund process</h2>
-      <ul>
-        <li>Verified refunds are processed back to the original Razorpay payment method.</li>
-        <li>Refunds typically reach your account within 5–7 business days.</li>
-        <li>The seller's account may be flagged or suspended for invalid listings.</li>
-      </ul>
+      <h2><strong>5. Refund Processing</strong></h2>
+      <p>If approved, refunds will be processed to the original payment method within <strong>5–7 business days</strong>.</p>
 
-      <h2>4. Non-refundable cases</h2>
-      <ul>
-        <li>Reports made after the 1-hour window.</li>
-        <li>Coupons not redeemed due to user error or unmet brand terms.</li>
-        <li>Change of mind after the code is revealed.</li>
-      </ul>
+      <h2><strong>6. Non-Refundable Cases</strong></h2>
+      <p>Refunds will not be issued for change of mind, delayed reporting, misunderstanding of terms, or lack of proof.</p>
 
-      <p>For refund support, contact <strong>info@qupon.in</strong>.</p>
+      <h2><strong>7. Seller Accountability</strong></h2>
+      <p>Sellers uploading invalid or misleading coupons may face suspension or permanent bans. Payments for such coupons will not be released.</p>
+
+      <h2><strong>8. Policy Enforcement</strong></h2>
+      <p>This policy is strictly enforced. By purchasing on Qupon, you agree to all terms stated above.</p>
     </LegalLayout>
   );
 }
