@@ -20,7 +20,7 @@ export function TrustSafety() {
         {ITEMS.map(({ Icon, title, desc }) => (
           <div
             key={title}
-            className="bg-card border border-border rounded-2xl p-6 flex gap-4 hover:shadow-soft transition-shadow"
+            className="bg-card border border-border rounded-2xl p-6 flex gap-4 card-tilt"
           >
             <div className="h-11 w-11 shrink-0 rounded-xl bg-accent text-primary flex items-center justify-center">
               <Icon className="h-5 w-5" />

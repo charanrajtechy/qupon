@@ -33,7 +33,7 @@ export function HowItWorks() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.4, delay: (i % 3) * 0.05 }}
-            className="group relative bg-card border border-border rounded-2xl p-6 hover:-translate-y-1 hover:shadow-glow hover:border-primary/30 transition-all"
+            className="group relative bg-card border border-border rounded-2xl p-6 hover:border-primary/30 card-tilt"
           >
             <div className="absolute top-5 right-5 text-xs font-bold text-muted-foreground/40">
               0{i + 1}
