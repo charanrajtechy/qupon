@@ -32,9 +32,18 @@ export function Hero() {
             </div>
             <div className="mt-8 flex items-center gap-6 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
-                {["#E53935", "#FB7185", "#F97316", "#FBBF24"].map((c) => (
-                  <div key={c} className="h-8 w-8 rounded-full border-2 border-background" style={{ background: c }} />
+                {AVATARS.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt={`Happy user ${i + 1}`}
+                    loading="lazy"
+                    className="h-9 w-9 rounded-full border-2 border-background bg-accent object-cover"
+                  />
                 ))}
+                <div className="h-9 w-9 rounded-full border-2 border-background bg-gradient-primary text-primary-foreground flex items-center justify-center shadow-soft">
+                  <Plus className="h-4 w-4" strokeWidth={3} />
+                </div>
               </div>
               <span><strong className="text-foreground">100K+</strong> happy users already saving</span>
             </div>
