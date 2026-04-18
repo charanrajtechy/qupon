@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Section, SectionHeader } from "@/components/Section";
 import { FinalCTA } from "@/components/CTASections";
 import { Target, Heart, Users } from "lucide-react";
+import founderKarthik from "@/assets/founder-karthik.jpeg";
+import founderPreetham from "@/assets/founder-preetham.jpeg";
+import founderShrikar from "@/assets/founder-shrikar.jpeg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -16,8 +19,9 @@ export const Route = createFileRoute("/about")({
 });
 
 const FOUNDERS = [
-  { name: "Founder One", role: "Co-Founder & CEO", initials: "F1" },
-  { name: "Founder Two", role: "Co-Founder & CTO", initials: "F2" },
+  { name: "Karthik Gupta", role: "Founder & CEO", image: founderKarthik },
+  { name: "Badam Preetham", role: "Founder & CFO", image: founderPreetham },
+  { name: "Akarapu Shrikar", role: "Founder & CMO", image: founderShrikar },
 ];
 
 function About() {
@@ -57,11 +61,11 @@ function About() {
 
       <Section className="bg-surface">
         <SectionHeader eyebrow="The team" title="Meet the founders" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {FOUNDERS.map((f) => (
             <div key={f.name} className="bg-card border border-border rounded-2xl p-8 text-center shadow-soft">
-              <div className="h-24 w-24 mx-auto rounded-full bg-gradient-primary text-primary-foreground flex items-center justify-center text-2xl font-bold shadow-glow">
-                {f.initials}
+              <div className="h-32 w-32 mx-auto rounded-full overflow-hidden ring-4 ring-accent shadow-glow">
+                <img src={f.image} alt={f.name} className="h-full w-full object-cover" />
               </div>
               <h3 className="mt-5 text-xl font-semibold">{f.name}</h3>
               <p className="text-sm text-primary font-medium">{f.role}</p>
