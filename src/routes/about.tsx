@@ -48,7 +48,7 @@ function About() {
             { Icon: Heart, title: "Our Values", desc: "Trust, transparency, and verification — at the core of every transaction." },
             { Icon: Users, title: "Our Community", desc: "100,000+ savers and sellers across India turning unused coupons into savings and earnings." },
           ].map(({ Icon, title, desc }) => (
-            <div key={title} className="bg-card border border-border rounded-2xl p-7 shadow-soft">
+            <div key={title} className="bg-card border border-border rounded-2xl p-7 shadow-soft card-tilt">
               <div className="h-12 w-12 rounded-xl bg-accent text-primary flex items-center justify-center mb-4">
                 <Icon className="h-6 w-6" />
               </div>
@@ -63,7 +63,7 @@ function About() {
         <SectionHeader eyebrow="The team" title="Meet the founders" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {FOUNDERS.map((f) => (
-            <div key={f.name} className="bg-card border border-border rounded-2xl p-8 text-center shadow-soft">
+            <div key={f.name} className="bg-card border border-border rounded-2xl p-8 text-center shadow-soft card-tilt">
               <div className="h-32 w-32 mx-auto rounded-full overflow-hidden ring-4 ring-accent shadow-glow">
                 <img src={f.image} alt={f.name} className="h-full w-full object-cover" />
               </div>

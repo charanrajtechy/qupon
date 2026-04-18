@@ -19,7 +19,7 @@ const T2 = [
 
 function Card({ name, text }: { name: string; text: string }) {
   return (
-    <div className="shrink-0 w-[320px] sm:w-[380px] bg-card border border-border rounded-2xl p-5 mx-3 shadow-soft">
+    <div className="shrink-0 w-[320px] sm:w-[380px] bg-card border border-border rounded-2xl p-5 mx-3 shadow-soft card-tilt">
       <div className="flex gap-0.5 mb-3 text-primary">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star key={i} className="h-4 w-4 fill-current" />
