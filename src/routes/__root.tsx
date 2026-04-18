@@ -38,6 +38,12 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Qupon" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Qupon — Buy & Sell Verified Coupons" },
+      { name: "twitter:title", content: "Qupon — Buy & Sell Verified Coupons" },
+      { property: "og:description", content: "Qupon is India's peer-to-peer coupon marketplace. Buy verified coupons at huge discounts or earn from your unused deals." },
+      { name: "twitter:description", content: "Qupon is India's peer-to-peer coupon marketplace. Buy verified coupons at huge discounts or earn from your unused deals." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/rYhQb4s7f7UwnAEbl0fhbxWEjBU2/social-images/social-1776496335835-1000073561.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/rYhQb4s7f7UwnAEbl0fhbxWEjBU2/social-images/social-1776496335835-1000073561.webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
