@@ -88,7 +88,7 @@ Thank you,`;
               </div>
             </a>
             <div className="flex items-start gap-4 p-5 bg-gradient-primary text-primary-foreground rounded-2xl shadow-glow">
-              <div className="h-11 w-11 rounded-xl bg-white flex items-center justify-center p-1.5"><img src={whatsappIcon} alt="WhatsApp" className="h-full w-full object-contain" /></div>
+              <img src={whatsappIcon} alt="WhatsApp" className="h-11 w-11 object-contain shrink-0" />
               <div>
                 <div className="text-sm opacity-90">Quick chat</div>
                 <div className="font-semibold">Submit the form to message us on WhatsApp</div>
