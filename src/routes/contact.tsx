@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Section } from "@/components/Section";
-import { Mail, Phone, MessageCircle } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { CONTACT_EMAIL, CONTACT_PHONE, WHATSAPP_NUMBER } from "@/lib/app-links";
+import whatsappIcon from "@/assets/whatsapp-icon.png";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -87,7 +88,7 @@ Thank you,`;
               </div>
             </a>
             <div className="flex items-start gap-4 p-5 bg-gradient-primary text-primary-foreground rounded-2xl shadow-glow">
-              <div className="h-11 w-11 rounded-xl bg-white/15 flex items-center justify-center"><MessageCircle className="h-5 w-5" /></div>
+              <div className="h-11 w-11 rounded-xl bg-white flex items-center justify-center p-1.5"><img src={whatsappIcon} alt="WhatsApp" className="h-full w-full object-contain" /></div>
               <div>
                 <div className="text-sm opacity-90">Quick chat</div>
                 <div className="font-semibold">Submit the form to message us on WhatsApp</div>
