@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import { StoreButtons } from "./StoreButtons";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Plus } from "lucide-react";
+
+const AVATARS = ["Aarav", "Priya", "Rohit", "Sneha"].map(
+  (seed) => `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}&backgroundColor=ffd5dc,ffdfbf,c0aede,b6e3f4`
+);
 
 export function Hero() {
   return (
