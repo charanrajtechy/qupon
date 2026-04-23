@@ -38,10 +38,10 @@ export function SocialProof() {
         {STATS.map((s, i) => (
           <motion.div
             key={s.label}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={false}
+            whileInView={{ y: [10, 0] }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
+            transition={{ duration: 0.3, delay: i * 0.1 }}
           >
             <div className="text-5xl sm:text-6xl font-bold tracking-tight">
               {s.prefix}<Counter to={s.value} format={s.format} />{s.suffix}
