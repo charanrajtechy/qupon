@@ -29,10 +29,10 @@ export function HowItWorks() {
         {STEPS.map(({ Icon, title, desc, micro }, i) => (
           <motion.div
             key={title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={false}
+            whileInView={{ y: [14, 0] }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.4, delay: (i % 3) * 0.05 }}
+            transition={{ duration: 0.3, delay: (i % 3) * 0.05 }}
             className="group relative bg-card border border-border rounded-2xl p-6 hover:border-primary/30 card-tilt"
           >
             <div className="absolute top-5 right-5 text-xs font-bold text-muted-foreground/40">

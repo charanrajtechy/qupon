@@ -8,9 +8,10 @@ export function Hero() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-20 sm:pt-20 sm:pb-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={false}
+            whileInView={{ y: [8, 0] }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
           >
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent text-primary text-xs font-semibold mb-6">
               <Sparkles className="h-3.5 w-3.5" />
@@ -37,9 +38,10 @@ export function Hero() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
+            initial={false}
+            whileInView={{ y: [12, 0] }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.1 }}
             className="relative hidden lg:block"
           >
             <div className="relative mx-auto w-[300px] h-[600px] rounded-[2.5rem] bg-foreground p-3 shadow-glow">

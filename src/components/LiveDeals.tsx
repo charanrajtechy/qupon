@@ -18,10 +18,10 @@ export function LiveDeals() {
           return (
             <motion.div
               key={d.brand}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={false}
+              whileInView={{ y: [12, 0] }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
+              transition={{ duration: 0.3, delay: i * 0.08 }}
               className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-soft card-tilt"
             >
               <div className={`h-28 bg-gradient-to-br ${d.color} flex items-center justify-center text-primary-foreground text-3xl font-bold tracking-tight`}>
