@@ -30,10 +30,10 @@ export function SectionHeader({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={false}
+      whileInView={{ y: [12, 0] }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.35 }}
       className={`mb-12 ${center ? "text-center mx-auto max-w-2xl" : ""}`}
     >
       {eyebrow && (
