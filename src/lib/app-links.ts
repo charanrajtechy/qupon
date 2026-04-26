@@ -7,17 +7,61 @@ export const CONTACT_PHONE = "+91 91212 89189";
 
 export type DevicePlatform = "ios" | "android" | "other";
 
+export type PlatformDetection = {
+  platform: DevicePlatform;
+  /** Why we picked this platform — useful for debugging in the console. */
+  reason: string;
+};
+
+/**
+ * Known iOS in-app browser / webview tokens.
+ * Anything embedding WKWebView on iOS will keep "Mobile/" + a Safari-like UA,
+ * but most apps add their own marker that we can match here.
+ */
+const IOS_WEBVIEW_TOKENS = [
+  "crios",        // Chrome on iOS
+  "fxios",        // Firefox on iOS
+  "edgios",       // Edge on iOS
+  "edgios/",      // Edge variant
+  "opios",        // Opera on iOS
+  "opt/",         // Opera Touch on iOS
+  "duckduckgo",   // DuckDuckGo on iOS
+  "yjapp-ios",    // Yahoo Japan iOS app
+  "gsa/",         // Google Search App on iOS
+  "googleapp",    // Older Google app token
+  "fban", "fbav", "fbios",      // Facebook
+  "instagram",                  // Instagram
+  "line/",                      // LINE
+  "twitter",                    // Twitter / X (legacy in-app)
+  "linkedinapp",                // LinkedIn
+  "micromessenger",             // WeChat
+  "kakaotalk",                  // KakaoTalk
+  "snapchat",                   // Snapchat
+  "pinterest",                  // Pinterest
+  "tiktok",                     // TikTok
+  "whatsapp",                   // WhatsApp in-app browser
+  "telegram",                   // Telegram
+  "naver",                      // Naver
+  "daumapps",                   // Daum
+  "miuibrowser",                // (Cross-platform marker, still combined w/ iPhone UA on iOS)
+];
+
 /**
  * Detects the user's mobile platform using multiple signals so it works for:
  * - Modern iPadOS (which spoofs Macintosh in the UA)
- * - iOS in-app webviews (Instagram, Facebook, LinkedIn, X, Gmail, Line, etc.)
- *   that may strip or rewrite parts of the user-agent
+ * - iOS in-app webviews / WKWebView wrappers (Instagram, Facebook, LinkedIn,
+ *   X, Gmail, Line, WeChat, Snapchat, TikTok, WhatsApp, Pinterest, Telegram, etc.)
+ * - Alternative iOS browsers (Chrome=CriOS, Firefox=FxiOS, Edge=EdgiOS,
+ *   Opera=OPiOS, DuckDuckGo, Brave-on-iOS which still uses CriOS)
+ * - iOS PWAs launched from the home screen (navigator.standalone === true)
  * - Android WebView / Chrome Custom Tabs
  * - User-Agent Client Hints (UA-CH) on modern Chromium browsers where the
  *   classic UA string is frozen / reduced
  */
-export function detectPlatform(): DevicePlatform {
-  if (typeof navigator === "undefined") return "other";
+export function detectPlatformVerbose(): PlatformDetection {
+  if (typeof navigator === "undefined") {
+    return { platform: "other", reason: "no-navigator (SSR)" };
+  }
 
   const nav = navigator as Navigator & {
     vendor?: string;
@@ -31,36 +75,67 @@ export function detectPlatform(): DevicePlatform {
     };
   };
 
-  const ua = (nav.userAgent || nav.vendor || "").toLowerCase();
+  const uaRaw = nav.userAgent || nav.vendor || "";
+  const ua = uaRaw.toLowerCase();
+  const vendor = (nav.vendor || "").toLowerCase();
   const platform = (nav.platform || "").toLowerCase();
   const uaChPlatform = (nav.userAgentData?.platform || "").toLowerCase();
-  const hasTouch = (nav.maxTouchPoints ?? 0) > 1 || (typeof document !== "undefined" && "ontouchend" in document);
+  const hasTouch =
+    (nav.maxTouchPoints ?? 0) > 1 ||
+    (typeof document !== "undefined" && "ontouchend" in document);
 
-  // ---- iOS / iPadOS ----
-  // 1. Classic iPhone/iPad/iPod UA
-  // 2. iPadOS 13+ reports as "MacIntel" with touch support
-  // 3. Embedded iOS webviews expose CriOS / FxiOS / EdgiOS / OPiOS / GSA (Google app)
-  //    and in-app browsers like FBAN/FBAV (Facebook), Instagram, Line, Twitter, LinkedInApp
-  // 4. Apple-only quirks: navigator.standalone (PWA on iOS) and "Apple Computer" vendor
-  const iosUaHints = /iphone|ipad|ipod|crios|fxios|edgios|opios|gsa\//.test(ua);
-  const iosWebviewHints = /(fban|fbav|instagram|line\/|twitter|linkedinapp|micromessenger|kakao)/.test(ua) && /mobile|safari/.test(ua) && /apple/.test((nav.vendor || "").toLowerCase());
-  const isIPadOS = (platform === "macintel" || /mac/.test(uaChPlatform)) && hasTouch && !/android/.test(ua);
-  const isStandaloneIOS = nav.standalone === true; // only defined on iOS Safari
+  // ---- Hard iOS signals ----
+  if (/iphone|ipad|ipod/.test(ua)) {
+    return { platform: "ios", reason: "ua-iphone-ipad-ipod" };
+  }
 
-  if (iosUaHints || iosWebviewHints || isIPadOS || isStandaloneIOS) return "ios";
+  // iPadOS 13+: reports as MacIntel/Mac with touch support
+  if ((platform === "macintel" || /mac/.test(uaChPlatform) || /macintosh/.test(ua)) && hasTouch && !/android/.test(ua)) {
+    return { platform: "ios", reason: "ipados-mac-with-touch" };
+  }
+
+  // iOS PWA standalone mode (only defined on iOS Safari)
+  if (nav.standalone === true) {
+    return { platform: "ios", reason: "ios-standalone-pwa" };
+  }
+
+  // Alternative iOS browsers and in-app webviews. These embed WKWebView and
+  // carry "Mobile/" in the UA along with an Apple vendor string, plus their
+  // own brand token. We require BOTH to avoid false-positives on Android
+  // (e.g. Chrome on Android also has "Mobile" but vendor is not Apple).
+  const looksApple = /apple/.test(vendor);
+  const looksMobileWebkit = /mobile\//.test(ua) || /applewebkit/.test(ua);
+  const matchedToken = IOS_WEBVIEW_TOKENS.find((t) => ua.includes(t));
+  if (matchedToken && looksApple && looksMobileWebkit && !/android/.test(ua)) {
+    return { platform: "ios", reason: `ios-webview:${matchedToken}` };
+  }
+
+  // Some stripped UAs (e.g. Gmail on iOS in certain modes) drop the brand
+  // token but still show "Mobile/" + Apple vendor + WebKit. Treat as iOS.
+  if (looksApple && looksMobileWebkit && !/android/.test(ua) && /safari/.test(ua) === false) {
+    return { platform: "ios", reason: "ios-apple-mobile-webkit-no-safari" };
+  }
 
   // ---- Android ----
-  // UA-CH platform is the most reliable signal on modern Chrome/Android where
-  // UA is reduced; fall back to legacy UA sniffing for older browsers and webviews.
-  if (uaChPlatform === "android" || /android/.test(ua)) return "android";
+  if (uaChPlatform === "android") {
+    return { platform: "android", reason: "ua-ch-android" };
+  }
+  if (/android/.test(ua)) {
+    return { platform: "android", reason: "ua-android" };
+  }
 
-  return "other";
+  return { platform: "other", reason: "no-match" };
+}
+
+export function detectPlatform(): DevicePlatform {
+  return detectPlatformVerbose().platform;
 }
 
 /**
  * Returns the correct store URL for the current device.
- * Falls back to Google Play on desktop / unknown platforms because it is the
- * larger user base in India and works on every desktop browser.
+ * - iOS  → App Store
+ * - Android → Google Play
+ * - Desktop / unknown → Google Play (safe default; works on every desktop browser)
  */
 export function getStoreUrl(): string {
   const platform = detectPlatform();
