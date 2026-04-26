@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Section, SectionHeader } from "./Section";
 import { ArrowRight } from "lucide-react";
+import { getStoreUrl } from "@/lib/app-links";
 
 const DEALS = [
   { brand: "Zomato", original: 200, sale: 50, color: "from-rose-500 to-red-600" },
@@ -16,13 +17,19 @@ export function LiveDeals() {
         {DEALS.map((d, i) => {
           const off = Math.round(((d.original - d.sale) / d.original) * 100);
           return (
-            <motion.div
+            <motion.a
               key={d.brand}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                window.open(getStoreUrl(), "_blank", "noopener,noreferrer");
+              }}
+              aria-label={`Buy ${d.brand} coupon in the Qupon app`}
               initial={false}
               whileInView={{ y: [12, 0] }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: i * 0.08 }}
-              className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-soft card-tilt"
+              className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-soft card-tilt block cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <div className={`h-28 bg-gradient-to-br ${d.color} flex items-center justify-center text-primary-foreground text-3xl font-bold tracking-tight`}>
                 {d.brand}
@@ -40,7 +47,7 @@ export function LiveDeals() {
                   Buy in app <ArrowRight className="h-4 w-4" />
                 </div>
               </div>
-            </motion.div>
+            </motion.a>
           );
         })}
       </div>
