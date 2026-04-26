@@ -44,9 +44,11 @@ function Row({ items, dir }: { items: typeof T1; dir: "left" | "right" }) {
 
 export function Testimonials() {
   return (
-    <Section className="bg-surface">
+    <Section className="bg-surface overflow-hidden">
       <SectionHeader eyebrow="Loved by users" title="Real stories from real savers & sellers" />
-      <div className="space-y-6">
+      <div
+        className="space-y-6 [transform:rotate(-2deg)] [transform-origin:center] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_12%,black_88%,transparent_100%)] [mask-image:linear-gradient(to_right,transparent_0%,black_12%,black_88%,transparent_100%)] py-4"
+      >
         <Row items={T1} dir="left" />
         <Row items={T2} dir="right" />
       </div>
