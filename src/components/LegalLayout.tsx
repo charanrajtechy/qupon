@@ -24,7 +24,7 @@ export function LegalLayout({
         </div>
       </Section>
       <Section className="!pt-6">
-        <article className="max-w-3xl mx-auto prose prose-slate prose-headings:font-semibold prose-headings:tracking-tight prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-3 prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground prose-strong:text-foreground prose-a:text-primary">
+        <article className="max-w-3xl mx-auto prose prose-slate prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-3 prose-h3:text-xl prose-h3:font-bold prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground prose-li:marker:font-bold prose-li:marker:text-foreground prose-strong:text-foreground prose-a:text-primary">
           {children}
         </article>
       </Section>
