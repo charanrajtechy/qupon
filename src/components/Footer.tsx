@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/qupon-logo.png";
+import { ThemeToggle } from "./ThemeToggle";
 
 type IconProps = { className?: string };
 const FacebookIcon = ({ className }: IconProps) => (
@@ -80,8 +81,12 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/10 text-center text-xs uppercase tracking-wider text-footer-foreground/50">
-          © 2025 Qupon Private Limited. All rights reserved.
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs uppercase tracking-wider text-footer-foreground/50">
+          <div className="text-center sm:text-left">© 2025 Qupon Private Limited. All rights reserved.</div>
+          <div className="flex items-center gap-3 normal-case tracking-normal">
+            <span className="text-footer-foreground/50 text-xs">Theme</span>
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </footer>
