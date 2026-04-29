@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -7,7 +6,6 @@ import { ActivityTicker } from "@/components/ActivityTicker";
 import { InstallPrompt } from "@/components/InstallPrompt";
 import { RoutePending } from "@/components/RoutePending";
 import { Toaster } from "@/components/ui/sonner";
-import { registerPWA } from "@/lib/pwa";
 
 import appCss from "../styles.css?url";
 
@@ -56,7 +54,6 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "apple-touch-icon", href: "/favicon.png" },
-      { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" },
@@ -84,10 +81,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  useEffect(() => {
-    registerPWA();
-  }, []);
-
   return (
     <ThemeProvider>
       <div className="flex min-h-screen flex-col">
