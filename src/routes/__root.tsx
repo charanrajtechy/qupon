@@ -1,10 +1,13 @@
+import { useEffect } from "react";
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ActivityTicker } from "@/components/ActivityTicker";
+import { InstallPrompt } from "@/components/InstallPrompt";
 import { RoutePending } from "@/components/RoutePending";
 import { Toaster } from "@/components/ui/sonner";
+import { registerPWA } from "@/lib/pwa";
 
 import appCss from "../styles.css?url";
 
