@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { Download, Share, X } from "lucide-react";
+import { Smartphone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  detectPlatform,
+  ANDROID_URL,
+  IOS_URL,
+  type DevicePlatform,
+} from "@/lib/app-links";
 
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
-}
-
-const DISMISS_KEY = "qupon_install_dismissed_at";
+const DISMISS_KEY = "qupon_app_badge_dismissed_at";
 const DISMISS_DAYS = 14;
 
 function wasRecentlyDismissed(): boolean {
@@ -21,62 +22,26 @@ function wasRecentlyDismissed(): boolean {
   }
 }
 
-function isStandalone(): boolean {
-  if (typeof window === "undefined") return false;
-  return (
-    window.matchMedia("(display-mode: standalone)").matches ||
-    // iOS Safari
-    (window.navigator as unknown as { standalone?: boolean }).standalone === true
-  );
+function getStoreLabel(platform: DevicePlatform): string {
+  if (platform === "ios") return "Get on the App Store";
+  if (platform === "android") return "Get it on Google Play";
+  return "Get the Qupon app";
 }
 
-function isIOSSafari(): boolean {
-  if (typeof window === "undefined") return false;
-  const ua = window.navigator.userAgent;
-  const isIOS = /iPad|iPhone|iPod/.test(ua);
-  const isSafari = /^((?!chrome|crios|fxios|edgios).)*safari/i.test(ua);
-  return isIOS && isSafari;
-}
-
-function isPreviewHost(): boolean {
-  if (typeof window === "undefined") return true;
-  const host = window.location.hostname;
-  return host.includes("id-preview--") || host.includes("lovableproject.com");
+function getStoreHref(platform: DevicePlatform): string {
+  if (platform === "ios") return IOS_URL;
+  return ANDROID_URL;
 }
 
 export function InstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [showIOS, setShowIOS] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [platform, setPlatform] = useState<DevicePlatform>("other");
 
   useEffect(() => {
-    if (isPreviewHost() || isStandalone() || wasRecentlyDismissed()) return;
-
-    const onBeforeInstall = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
-      // Delay so it doesn't compete with the hero
-      setTimeout(() => setVisible(true), 4000);
-    };
-
-    window.addEventListener("beforeinstallprompt", onBeforeInstall);
-
-    // iOS Safari has no beforeinstallprompt — show instructions instead
-    if (isIOSSafari()) {
-      setShowIOS(true);
-      setTimeout(() => setVisible(true), 6000);
-    }
-
-    const onInstalled = () => {
-      setVisible(false);
-      setDeferredPrompt(null);
-    };
-    window.addEventListener("appinstalled", onInstalled);
-
-    return () => {
-      window.removeEventListener("beforeinstallprompt", onBeforeInstall);
-      window.removeEventListener("appinstalled", onInstalled);
-    };
+    if (wasRecentlyDismissed()) return;
+    setPlatform(detectPlatform());
+    const t = setTimeout(() => setVisible(true), 4000);
+    return () => clearTimeout(t);
   }, []);
 
   const dismiss = () => {
@@ -88,29 +53,20 @@ export function InstallPrompt() {
     }
   };
 
-  const install = async () => {
-    if (!deferredPrompt) return;
-    await deferredPrompt.prompt();
-    const choice = await deferredPrompt.userChoice;
-    if (choice.outcome === "accepted") {
-      setVisible(false);
-    } else {
-      dismiss();
-    }
-    setDeferredPrompt(null);
-  };
-
   if (!visible) return null;
+
+  const href = getStoreHref(platform);
+  const label = getStoreLabel(platform);
 
   return (
     <div
       role="dialog"
-      aria-label="Install Qupon app"
+      aria-label="Get the Qupon app"
       className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-md rounded-2xl border border-border bg-card p-4 shadow-2xl sm:bottom-4 sm:right-4 sm:left-auto sm:mx-0 animate-in slide-in-from-bottom-5 duration-300"
     >
       <button
         onClick={dismiss}
-        aria-label="Dismiss install prompt"
+        aria-label="Dismiss"
         className="absolute right-2 top-2 rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
       >
         <X className="h-4 w-4" />
@@ -118,29 +74,22 @@ export function InstallPrompt() {
 
       <div className="flex items-start gap-3 pr-6">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-          <Download className="h-5 w-5 text-primary" />
+          <Smartphone className="h-5 w-5 text-primary" />
         </div>
         <div className="flex-1">
-          <p className="text-sm font-semibold text-foreground">Install Qupon</p>
-          {showIOS ? (
-            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-              Tap <Share className="inline h-3.5 w-3.5 align-text-bottom" /> Share, then{" "}
-              <span className="font-medium text-foreground">Add to Home Screen</span>.
-            </p>
-          ) : (
-            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-              Get faster access to deals — install Qupon on your device.
-            </p>
-          )}
-          {!showIOS && deferredPrompt && (
-            <Button
-              size="sm"
-              onClick={install}
-              className="mt-3 h-8 rounded-lg bg-primary px-3 text-xs font-semibold text-primary-foreground hover:bg-primary-hover"
-            >
-              Install app
-            </Button>
-          )}
+          <p className="text-sm font-semibold text-foreground">Get the Qupon app</p>
+          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+            Faster access to verified deals on your phone.
+          </p>
+          <Button
+            asChild
+            size="sm"
+            className="mt-3 h-8 rounded-lg bg-primary px-3 text-xs font-semibold text-primary-foreground hover:bg-primary-hover"
+          >
+            <a href={href} target="_blank" rel="noopener noreferrer" onClick={dismiss}>
+              {label}
+            </a>
+          </Button>
         </div>
       </div>
     </div>
