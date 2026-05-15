@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/accordion";
 import { ShoppingBag, Tag } from "lucide-react";
 
-const buyerFaqs = [
+export const buyerFaqs = [
   {
     q: "How do I know a coupon is valid?",
     a: "Every coupon listed on Qupon is verified by our team before going live. We check the brand, expiry date, and transferability so you only see deals that work.",
@@ -26,7 +26,7 @@ const buyerFaqs = [
   },
 ];
 
-const sellerFaqs = [
+export const sellerFaqs = [
   {
     q: "What kind of coupons can I sell?",
     a: "Any unused, transferable coupon with a valid expiry date — across food, shopping, travel, and more. You can upload the code or a screenshot along with the terms.",

@@ -1,0 +1,17 @@
+# Qupon
+
+> Qupon is India's peer-to-peer coupon marketplace. Buy verified coupons at huge discounts or earn from your unused deals. Payments are processed securely via Razorpay.
+
+Qupon (operated by Qupon Private Limited) connects buyers looking for discounts with sellers holding unused, transferable coupons across food, shopping, travel, and more. Every coupon is verified by the Qupon team before going live, and buyers are protected by a strict 1-hour refund window for invalid coupons.
+
+## Pages
+
+- [Home](/): Overview of Qupon, how it works, featured deals, and FAQ.
+- [About](/about): Mission, values, and the founders behind Qupon.
+- [Contact](/contact): Reach the Qupon team for support, partnerships, or press.
+
+## Optional
+
+- [Terms of Service](/terms): User agreement and platform rules.
+- [Privacy Policy](/privacy): How Qupon collects and handles user data.
+- [Refund Policy](/refund): Strict 1-hour refund window and proof requirements.
