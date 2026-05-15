@@ -8,6 +8,7 @@ import { SocialProof } from "@/components/SocialProof";
 import { Testimonials } from "@/components/Testimonials";
 import { SellerCTA, FinalCTA } from "@/components/CTASections";
 import { FAQ } from "@/components/FAQ";
+import { FAQ, buyerFaqs, sellerFaqs } from "@/components/FAQ";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -16,6 +17,20 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "India's peer-to-peer coupon marketplace. Buy verified coupons at discounted prices or sell your unused deals. Secure payments via Razorpay." },
       { property: "og:title", content: "Qupon — Buy & Sell Verified Coupons" },
       { property: "og:description", content: "Save money or earn from unused deals — fast, secure, and hassle-free." },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [...buyerFaqs, ...sellerFaqs].map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
     ],
   }),
   component: Index,

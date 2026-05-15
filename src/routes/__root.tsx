@@ -58,6 +58,30 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              name: "Qupon Private Limited",
+              alternateName: "Qupon",
+              url: "https://qupon.lovable.app",
+              logo: "https://qupon.lovable.app/favicon.png",
+              email: "info@qupon.in",
+              telephone: "+91-91212-89189",
+            },
+            {
+              "@type": "WebSite",
+              name: "Qupon",
+              url: "https://qupon.lovable.app",
+            },
+          ],
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
