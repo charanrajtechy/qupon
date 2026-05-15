@@ -7,8 +7,8 @@ import { LiveDeals } from "@/components/LiveDeals";
 import { SocialProof } from "@/components/SocialProof";
 import { Testimonials } from "@/components/Testimonials";
 import { SellerCTA, FinalCTA } from "@/components/CTASections";
-import { FAQ } from "@/components/FAQ";
 import { FAQ, buyerFaqs, sellerFaqs } from "@/components/FAQ";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
